@@ -738,7 +738,7 @@ fi
 if [[ $AVDC_STEP -eq 230 ]] ; then
 
 if [ "$PORTABLE_CONFIGURATION" -eq "1" ] ; then
-	"$PM_INSTALL" "$PACKAGE_USBMOUNT" "$PM_INSTALL_ENDING_VARIABLES"
+	$PM_INSTALL "$PACKAGE_USBMOUNT" "$PM_INSTALL_ENDING_VARIABLES"
 
 	if [ "$SKIP_INSTALLATION_CHECK" -eq "0" ] ; then
 	if [ "$(dpkg-query -W -f='${Status}' $PACKAGE_USBMOUNT 2>/dev/null | grep -c "ok installed")" -eq 0 ] ; then
@@ -884,7 +884,7 @@ if [[ $AVDC_STEP -eq 310 ]] ; then
 
 #Temporary disable SELinux, will be enabled the next day with exclusions for DNS, SAMBA, DHCP and DHCP.
 if [ "$SELINUX" -eq "1" ]; then
-	"$PM_INSTALL" "$PACKAGE_SELINUX" "$PACKAGE_SELINUX_POLICY_DEFAULT" "$PM_INSTALL_ENDING_VARIABLES"
+	$PM_INSTALL "$PACKAGE_SELINUX" "$PACKAGE_SELINUX_POLICY_DEFAULT" "$PM_INSTALL_ENDING_VARIABLES"
 
 	if [ "$SKIP_INSTALLATION_CHECK" -eq "0" ] ; then
 	if [ "$(dpkg-query -W -f='${Status}' $PACKAGE_SELINUX 2>/dev/null | grep -c "ok installed")" -eq 0 ] ; then
@@ -986,7 +986,7 @@ fi
 if [[ $AVDC_STEP -eq 320 ]] ; then
 
 if [ "$DHCP_SERVER" -eq "1" ]; then
-   "$PM_INSTALL" "$PACKAGE_DHCPD" "$PM_INSTALL_ENDING_VARIABLES"
+   $PM_INSTALL "$PACKAGE_DHCPD" "$PM_INSTALL_ENDING_VARIABLES"
 
    	if [ "$SKIP_INSTALLATION_CHECK" -eq "0" ] ; then
 	if [ "$(dpkg-query -W -f='${Status}' $PACKAGE_DHCPD 2>/dev/null >/dev/null)" -eq "1" ] ; then
@@ -1015,7 +1015,7 @@ if [ "$DHCP_SERVER" -eq "1" ]; then
 fi
 
 if [ "$ANTIVIRUS" -eq "1" ]; then
-	"$PM_INSTALL" "$PACKAGE_CLAMAV" "$PACKAGE_CLAMAV_FRESHCLAM" "$PM_INSTALL_ENDING_VARIABLES"
+	$PM_INSTALL "$PACKAGE_CLAMAV" "$PACKAGE_CLAMAV_FRESHCLAM" "$PM_INSTALL_ENDING_VARIABLES"
 	touch "$PATH_FOLDER_CRON_HOURLY/ClamAV"
 
 #Variables are not properly being pasted.
@@ -1118,7 +1118,7 @@ EOT
 fi
 
 if [ "$FIREWALL" -eq "1" ]; then
-    "$PM_INSTALL" "$PACKAGE_FIREWALLD" "$PM_INSTALL_ENDING_VARIABLES"
+    $PM_INSTALL "$PACKAGE_FIREWALLD" "$PM_INSTALL_ENDING_VARIABLES"
 
 	if [ "$SKIP_INSTALLATION_CHECK" -eq "0" ] ; then
 	if [ "$(dpkg-query -W -f='${Status}' $PACKAGE_FIREWALLD 2>/dev/null | grep -c "ok installed")" -eq 0 ] ; then
@@ -1149,7 +1149,7 @@ if [ "$FIREWALL" -eq "1" ]; then
 fi
 
 if [ "$SSH_SERVER" -eq "1" ] ; then
-    "$PM_INSTALL" "$PACKAGE_OPENSSHD" "$PM_INSTALL_ENDING_VARIABLES"
+    $PM_INSTALL "$PACKAGE_OPENSSHD" "$PM_INSTALL_ENDING_VARIABLES"
 
 	if [ "$SKIP_INSTALLATION_CHECK" -eq "0" ] ; then
 	if [ "$(dpkg-query -W -f='${Status}' $PACKAGE_OPENSSHD 2>/dev/null | grep -c "ok installed")" -eq 0 ] ; then
@@ -1177,18 +1177,18 @@ if [ "$SSH_SERVER" -eq "1" ] ; then
 	fi
 
 	if [ "$SSH_PORTKNOCKING" -eq "1" ] ; then
-	"$PM_INSTALL" "$PACKAGE_KNOCKD" "$PM_INSTALL_ENDING_VARIABLES"
+	$PM_INSTALL "$PACKAGE_KNOCKD" "$PM_INSTALL_ENDING_VARIABLES"
 	fi
 	if [ "$SSH_FAIL2BAN" -eq "2" ] ; then
-	"$PM_INSTALL" "$PACKAGE_FAIL2BAN" "$PM_INSTALL_ENDING_VARIABLES"
+	$PM_INSTALL "$PACKAGE_FAIL2BAN" "$PM_INSTALL_ENDING_VARIABLES"
 	fi
 	if [ "$SSH_2FA" -eq "1" ] ; then
-	"$PM_INSTALL" "$PACKAGE_LIBPAM_GOOGLE_AUTHENTICATOR" "$PM_INSTALL_ENDING_VARIABLES"
+	$PM_INSTALL "$PACKAGE_LIBPAM_GOOGLE_AUTHENTICATOR" "$PM_INSTALL_ENDING_VARIABLES"
 	fi
 fi
 
 if [ "$PXE_SERVER" -eq "2" ]; then
-	"$PM_INSTALL" "$PACKAGE_TFTPD" "$PACKAGE_APACHE" "$PM_INSTALL_ENDING_VARIABLES"
+	$PM_INSTALL "$PACKAGE_TFTPD" "$PACKAGE_APACHE" "$PM_INSTALL_ENDING_VARIABLES"
 
 	if [ "$SKIP_INSTALLATION_CHECK" -eq "0" ] ; then
 	if [ "$(dpkg-query -W -f='${Status}' '$PACKAGE_TFTPD' 2>/dev/null | grep -c "ok installed")" -eq 0 ] ; then
@@ -1241,7 +1241,7 @@ if [ "$PXE_SERVER" -eq "2" ]; then
 	fi
 fi
 
-"$PM_INSTALL" "$PACKAGE_SAMBA" "$PACKAGE_NTP" "$PM_INSTALL_ENDING_VARIABLES"
+$PM_INSTALL "$PACKAGE_SAMBA" "$PACKAGE_NTP" "$PM_INSTALL_ENDING_VARIABLES"
 
 if [ "$SKIP_INSTALLATION_CHECK" -eq "0" ] ; then
 if [ "$(dpkg-query -W -f='${Status}' $PACKAGE_SAMBA 2>/dev/null | grep -c "ok installed")" -eq 0 ] ; then
